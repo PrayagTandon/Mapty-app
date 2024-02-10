@@ -11,7 +11,8 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-// The geolocation API
+/* The Geolocation API and the Leaflet Library */
+
 navigator.geolocation.getCurrentPosition(function (position) {
     const { latitude, longitude } = position.coords;
     console.log(latitude);
