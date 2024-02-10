@@ -16,9 +16,9 @@ const inputElevation = document.querySelector('.form__input--elevation');
 // Creating a parent workout class
 class Workout {
     date = new Date();
-    id = `${new Date()}`.slice(-10);
+    id = `${Date.now()}`.slice(-10);
 
-    constructor(coords, duration, distance) {
+    constructor(coords, distance, duration) {
         this.coords = coords; // [lat , lng]
         this.duration = duration; // min
         this.distance = distance; // km
@@ -54,7 +54,10 @@ class Cycling extends Workout {
     }
 };
 
-const run = new Running([])
+const run = new Running([45, 12], 5.2, 24, 185);
+const cycling1 = new Cycling([45, 12], 25, 75, 520);
+
+console.log(run, cycling1);
 
 ////////////////////////////////////////// 
 // Created a Class for the whole App
