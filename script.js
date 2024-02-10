@@ -13,6 +13,51 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 // Using the OOP architecture to set the code....
 
+// Creating a parent workout class
+class Workout {
+    date = new Date();
+    id = `${new Date()}`.slice(-10);
+
+    constructor(coords, duration, distance) {
+        this.coords = coords; // [lat , lng]
+        this.duration = duration; // min
+        this.distance = distance; // km
+    }
+};
+
+// Creating the subclasses from the parent Workout class
+class Running extends Workout {
+    constructor(coords, distance, duration, cadence) {
+        super(coords, duration, distance);
+        this.cadence = cadence;
+        this.calcPace();
+    }
+
+    calcPace() {
+        // min/km
+        this.pace = this.duration / this.distance;
+        return this.pace;
+    }
+};
+
+class Cycling extends Workout {
+    constructor(coords, distance, duration, elevationGain) {
+        super(coords, duration, distance);
+        this.elevationGain = elevationGain;
+        this.calcSpeed();
+    }
+
+    calcSpeed() {
+        // km/h
+        this.speed = this.distance / (this.duration / 60);
+        return this.speed;
+    }
+};
+
+const run = new Running([])
+
+////////////////////////////////////////// 
+// Created a Class for the whole App
 class App {
     // Private instance fields
     #map;
@@ -82,7 +127,7 @@ class App {
             .setPopupContent('Workout!')
             .openPopup();
     }
-}
+};
 
 const app = new App();
 
