@@ -13,6 +13,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 // Using the OOP architecture to set the code....
 
+/////////////////////////////////////////////
 // Creating a parent workout class
 class Workout {
     date = new Date();
