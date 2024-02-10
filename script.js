@@ -15,10 +15,6 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 navigator.geolocation.getCurrentPosition(function (position) {
     const { latitude, longitude } = position.coords;
-    console.log(latitude);
-    console.log(longitude);
-
-    console.log(`https://www.google.com/maps/@${latitude},${longitude},15z?entry=ttu`);
 
     // Adding the leaflet library
     //  To set the latitude and longitude for our position..
@@ -33,6 +29,12 @@ navigator.geolocation.getCurrentPosition(function (position) {
     L.marker(coords).addTo(map)
         .bindPopup('A pretty CSS popup.<br> Easily customizable.')
         .openPopup();
+
+    // Adding the event listener to map object using on() method
+    map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+    })
+
 }, function () {
     alert(`Couldn't retreive your location ☹️☹️`);
 }, { enableHighAccuracy: true, timeout: 10000 })
