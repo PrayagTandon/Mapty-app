@@ -54,11 +54,6 @@ class Cycling extends Workout {
     }
 };
 
-const run = new Running([45, 12], 5.2, 24, 185);
-const cycling1 = new Cycling([45, 12], 25, 75, 520);
-
-console.log(run, cycling1);
-
 ////////////////////////////////////////// 
 // Created a Class for the whole App
 class App {
