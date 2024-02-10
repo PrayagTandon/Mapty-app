@@ -18,37 +18,34 @@ let map, mapEvent;
 
 class App {
     constructor() {
-
+        this.#getPosition();
     }
 
     #getPosition() {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            const { latitude, longitude } = position.coords;
-
-            // Adding the leaflet library
-            //  To set the latitude and longitude for our position..
-            const coords = [latitude, longitude];
-            // 13 -> zoom level
-            map = L.map('map').setView(coords, 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // Adding the event listener to map object using on() method
-            map.on('click', function (mapE) {
-                mapEvent = mapE;
-                form.classList.remove('hidden');
-                inputDistance.focus();
-            })
-
-        }, function () {
+        navigator.geolocation.getCurrentPosition(this.#loadMap, function () {
             alert(`Couldn't retreive your location ☹️☹️`);
         }, { enableHighAccuracy: true, timeout: 10000 });
     }
 
-    #loadMap() {
+    #loadMap(position) {
+        const { latitude, longitude } = position.coords;
 
+        // Adding the leaflet library
+        //  To set the latitude and longitude for our position..
+        const coords = [latitude, longitude];
+        // 13 -> zoom level
+        map = L.map('map').setView(coords, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Adding the event listener to map object using on() method
+        map.on('click', function (mapE) {
+            mapEvent = mapE;
+            form.classList.remove('hidden');
+            inputDistance.focus();
+        })
     }
 
     #showForm() {
@@ -64,9 +61,7 @@ class App {
     }
 }
 
-/* The Geolocation API and the Leaflet Library */
-
-
+const app = new App();
 
 // EVENT LISTENER FOR FORM
 form.addEventListener('submit', function (e) {
