@@ -77,9 +77,11 @@ a:visited {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
+
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
 }
+
 .workout--cycling {
   border-left: 5px solid var(--color-brand--1);
 }
@@ -125,6 +127,9 @@ a:visited {
 
   /* Match height and activity boxes */
   height: 9.25rem;
+}
+
+.form--transition {
   transition: all 0.5s, transform 1ms;
 }
 
@@ -215,6 +220,7 @@ a:visited {
 .running-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--2);
 }
+
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
