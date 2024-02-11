@@ -1,8 +1,6 @@
 'use strict';
 
-// prettier-ignore
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+// Selecting Elements
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -24,6 +22,17 @@ class Workout {
         this.duration = duration; // min
         this.distance = distance; // km
     }
+
+    #setDescription() {
+        // prettier-ignore
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+    }
+
+    _setDescptionChild() {
+        this.#setDescription;
+    }
 };
 
 // Creating the subclasses from the parent Workout class
@@ -33,6 +42,7 @@ class Running extends Workout {
         super(coords, duration, distance);
         this.cadence = cadence;
         this.calcPace();
+        this._setDescptionChild();
     }
 
     calcPace() {
@@ -48,6 +58,7 @@ class Cycling extends Workout {
         super(coords, duration, distance);
         this.elevationGain = elevationGain;
         this.calcSpeed();
+        this._setDescptionChild();
     }
 
     calcSpeed() {
@@ -160,17 +171,17 @@ class App {
 
 
         // Render workout on map as marker
-        this.renderMarkerWorkout(workout);
+        this.#renderMarkerWorkout(workout);
 
         // Render workout on list
+        this.#renderWorkout(workout);
 
         // Hide form + Clearing Input fields
         inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
     }
 
     // Marker method
-
-    renderMarkerWorkout(workout) {
+    #renderMarkerWorkout(workout) {
         L.marker(workout.coords).addTo(this.#map)
             .bindPopup(L.popup({
                 maxWidth: 250,
@@ -181,6 +192,24 @@ class App {
             }))
             .setPopupContent('workout')
             .openPopup();
+    }
+
+    #renderWorkout(workout) {
+        const html = `
+            <li class="workout workout--${workout.type}" data-id="${workout.id}">
+                <h2 class="workout__title">Running on April 14</h2>
+                <div class="workout__details">
+                    <span class="workout__icon">${workout.type === 'running' ? '🏃' : '🚴‍♀️'}</span>
+                    <span class="workout__value">${workout.distance}</span>
+                    <span class="workout__unit">km</span>
+                </div>
+                <div class="workout__details">
+                    <span class="workout__icon">⏱</span>
+                    <span class="workout__value">${workout.duration}</span>
+                    <span class="workout__unit">min</span>
+                </div>
+            </li>    
+        `
     }
 };
 
