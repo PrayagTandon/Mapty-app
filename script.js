@@ -58,7 +58,7 @@ class Cycling extends Workout {
 };
 
 ////////////////////////////////////////// 
-// Created a Class for the whole App
+// Created a Class for the whole Map functionality
 class App {
     // Private instance fields
     #map;
@@ -181,7 +181,6 @@ class App {
             }))
             .setPopupContent('workout')
             .openPopup();
-
     }
 };
 
