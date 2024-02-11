@@ -39,7 +39,7 @@ class Workout {
 class Running extends Workout {
     type = 'running';
     constructor(coords, distance, duration, cadence) {
-        super(coords, duration, distance);
+        super(coords, distance, duration);
         this.cadence = cadence;
         this.calcPace();
         this._setDescriptionChild();
@@ -55,7 +55,7 @@ class Running extends Workout {
 class Cycling extends Workout {
     type = 'cycling';
     constructor(coords, distance, duration, elevationGain) {
-        super(coords, duration, distance);
+        super(coords, distance, duration);
         this.elevationGain = elevationGain;
         this.calcSpeed();
         this._setDescriptionChild();
@@ -63,7 +63,7 @@ class Cycling extends Workout {
 
     calcSpeed() {
         // km/h
-        this.speed = this.distance / (this.duration / 60);
+        this.speed = (this.distance / (this.duration / 60));
         return this.speed;
     }
 };
@@ -196,7 +196,7 @@ class App {
                 closeOnClick: false,
                 className: `${workout.type}-popup`,
             }))
-            .setPopupContent('workout')
+            .setPopupContent(`${workout.type === 'running' ? '🏃' : '🚴‍♀️'} ${workout.description}`)
             .openPopup();
     }
 
