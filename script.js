@@ -73,6 +73,7 @@ class Cycling extends Workout {
 class App {
     // Private instance fields
     #map;
+    #mapZoomLevel = 13;
     #mapEvent;
     #workouts = [];
 
@@ -85,7 +86,7 @@ class App {
         inputType.addEventListener('change', this.#toggleElevationField);
 
         // Moving the marker on click
-        containerWorkouts.addEventListener('click', this.#moveToPopup);
+        containerWorkouts.addEventListener('click', this.#moveToPopup.bind(this));
     }
 
     // To get the location of the device
@@ -103,8 +104,7 @@ class App {
         //  To set the latitude and longitude for our position..
         const coords = [latitude, longitude];
         // 13 -> zoom level
-        console.log(this);
-        this.#map = L.map('map').setView(coords, 13);
+        this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
         L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -269,9 +269,18 @@ class App {
     // To move the marker on click
     #moveToPopup(e) {
         const workoutEl = e.target.closest('.workout');
-        console.log(workoutEl);
 
         if (!workoutEl) return;
+
+        const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
+
+        // Leaflet library method
+        this.#map.setView(workout.coords, this.#mapZoomLevel, {
+            animate: true,
+            pan: {
+                duration: 1,
+            }
+        })
     }
 };
 
