@@ -83,6 +83,9 @@ class App {
 
         // Adding the listener to the select -> change event
         inputType.addEventListener('change', this.#toggleElevationField);
+
+        // Moving the marker on click
+        containerWorkouts.addEventListener('click', this.#moveToPopup);
     }
 
     // To get the location of the device
@@ -262,7 +265,20 @@ class App {
         form.classList.toggle('hidden');
         form.classList.toggle('form--transition');
     }
+
+    // To move the marker on click
+    #moveToPopup(e) {
+        const workoutEl = e.target.closest('.workout');
+        console.log(workoutEl);
+
+        if (!workoutEl) return;
+    }
 };
 
 const app = new App();
+
+
+/*
+    To move the marker on click -> When the page loads there is no workout on the map, so we can't attach an event handler directly to the workout li, so instead we do event delegation and attach an event handler to its parent...
+*/
 
